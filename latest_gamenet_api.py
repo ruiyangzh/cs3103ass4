@@ -20,7 +20,7 @@ DEFAULT_WINDOW = 32
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 def now_ms():
-    return int(time.time() * 1000)  # 32-bit timestamp
+    return int(time.time() * 1000) & 0xFFFFFFFF  # 32-bit timestamp
 
 def pack_packet(channel_type: int, seqno: int, timestamp_ms: int, payload: bytes) -> bytes:
     return struct.pack(HEADER_FMT, channel_type, seqno, timestamp_ms) + payload
